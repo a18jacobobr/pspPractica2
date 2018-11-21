@@ -1,5 +1,7 @@
 package practica2;
 
+import aedi.*;
+
 public class Programa {
 
 	public static void main(String[] args) {
@@ -20,6 +22,8 @@ public class Programa {
 		// contacto -> recoge los datos de su familia y los devuelve de uno en uno
 		// informe -> es el buffer y los informes son el recurso, que empieza = 0
 		//
+	
+		//recursividad llamando al propio metodo para crear el arbol, en la profundidad deaseada (int profundidad) -> else y dejar de llamar al propio metodo
 		
 	}
 
