@@ -1,6 +1,6 @@
 package practica2;
 
-import aedi.*;
+import java.util.List;
 
 public class Programa {
 
@@ -24,6 +24,13 @@ public class Programa {
 		//
 	
 		//recursividad llamando al propio metodo para crear el arbol, en la profundidad deaseada (int profundidad) -> else y dejar de llamar al propio metodo
+		
+		Familia family = new Familia("Pepe");
+		family.generaArbol(3);
+		List<Integer> misValores = ArbolUtil.devuelveValoresArbol(family.getArbolito());
+		
+		
+		
 		
 	}
 
