@@ -7,8 +7,9 @@ public class Becario extends Thread{
 	
 	public int cafes;
 	public ContenedorInformes contenedor;
-	public Semaphore semaforoBecario;
+//	public Semaphore semaforoBecario;
 	public Semaphore semaforoRecoger = new Semaphore(1);
+//	private int esperando = 0;
 	
 	public Becario(int cafes, ContenedorInformes contenedor) {
 		super();
@@ -19,7 +20,7 @@ public class Becario extends Thread{
 	public void run () {
 				
 		while (Familias.familiasRestantes > 0) {
-			while (InformeIntermedio.informesRestantes <= 0) {
+			while (ContenedorInformes.informesIntermediosRestantes <= 0) {
 				cafes = cafes + 1;
 				try {
 					Thread.sleep(1000);
@@ -29,12 +30,18 @@ public class Becario extends Thread{
 				}					
 			}
 			try {
+//				esperando = esperando + 1;
 				semaforoRecoger.acquire();
+//				esperando = esperando - 1;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			contenedor.listaInformesFinales.add(creaInformeFinal(contenedor.listaInformesIntermedios.poll()));
+			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes - 1;
+			
+			semaforoRecoger.release();
+			
 			
 		}
 		
@@ -49,7 +56,8 @@ public class Becario extends Thread{
 			contador = contador + 1;
 		}
 		int media = suma / contador;
-		InformeFinal informeFinal = new InformeFinal(media);
+		
+		InformeFinal informeFinal = new InformeFinal(informe.getNombreFamilia(), media);
 		return informeFinal;
 	}
 

@@ -9,23 +9,22 @@ public class Empleado extends Thread {
 	
 	private Familias familias;
 	private ContenedorInformes contenedor;
-	private String nombre;
+	private String nombreEmpleado;
 	private List<Integer> listado;
 	private String apellidoFamilia;
 		
-	public Empleado(Familias familias, ContenedorInformes contenedor, String nombre, List<Integer> listado,
-			String apellidoFamilia) {
+	public Empleado(Familias familias, ContenedorInformes contenedor, String nombre) {
 		super();
 		this.familias = familias;
 		this.contenedor = contenedor;
-		this.nombre = nombre;
-		this.listado = listado;
-		this.apellidoFamilia = apellidoFamilia;
+		this.nombreEmpleado = nombre;
+		this.listado = new ArrayList<Integer>();
+		this.apellidoFamilia = "";
 	}
 	
 	public Empleado(String nombre) {
 		super();
-		this.nombre = nombre;
+		this.nombreEmpleado = nombre;
 		listado = new ArrayList<Integer>();
 	}
 	
@@ -47,11 +46,11 @@ public class Empleado extends Thread {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return nombreEmpleado;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombreEmpleado = nombre;
 	}
 
 	public List<Integer> getListado() {
@@ -74,8 +73,11 @@ public class Empleado extends Thread {
 		while (familias.conjuntoFamilias.size() > 0) {
 			familias.bloquear(this);
 			contenedor.listaInformesIntermedios.add(generaInformeIntermedio());
-			InformeIntermedio.informesRestantes = InformeIntermedio.informesRestantes + 1;
+			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes + 1;
+			System.out.println(nombreEmpleado+" ha creado el informe");
 			vaciaLista();
+			System.out.println(nombreEmpleado+" ha vaciado su lista");
+			
 		}
 	}
 	

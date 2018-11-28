@@ -1,6 +1,6 @@
 package practica2;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public class Programa {
 
@@ -27,7 +27,28 @@ public class Programa {
 		
 		Familia family = new Familia("Pepe");
 		family.generaArbol(3);
-		List<Integer> misValores = ArbolUtil.devuelveValoresArbol(family.getArbolito());
+		Familia family2 = new Familia("Lopez");
+		family.generaArbol(3);	
+		Familia family3 = new Familia("Saenz");
+		family.generaArbol(3);
+		LinkedList<Familia> listaFamilias = new LinkedList<Familia>();
+		listaFamilias.add(family);
+		listaFamilias.add(family2);
+		listaFamilias.add(family3);
+		Familias conjuntoFamilias = new Familias(listaFamilias);
+		ContenedorInformes contenedor = new ContenedorInformes();
+		
+		Empleado primerEmpleado = new Empleado(conjuntoFamilias, contenedor, "JuanEmpleado");
+		Empleado segundoEmpleado = new Empleado(conjuntoFamilias, contenedor, "PepeEmpleado");
+		Empleado tercerEmpleado = new Empleado(conjuntoFamilias, contenedor, "FelipeEmpleado");
+		
+		primerEmpleado.run();
+		segundoEmpleado.run();
+		tercerEmpleado.run();
+		
+		
+//		List<Integer> misValores = ArbolUtil.devuelveValoresArbol(family.getArbolito());
+		
 		
 		
 		

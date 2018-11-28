@@ -6,7 +6,6 @@ public class InformeIntermedio {
 	
 	public String nombreFamilia;
 	public List<Integer> listaEdades;
-	public static int informesRestantes = 0;
 	
 	public InformeIntermedio(String nombreFamilia, List<Integer> listaEdades) {
 		super();

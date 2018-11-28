@@ -7,6 +7,7 @@ public class ContenedorInformes {
 	
 	public LinkedList<InformeIntermedio> listaInformesIntermedios;
 	public LinkedList<InformeFinal> listaInformesFinales;
+	public static int informesIntermediosRestantes = 0;
 	
 	public ContenedorInformes() {
 		super();
