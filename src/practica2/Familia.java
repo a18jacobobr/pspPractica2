@@ -8,6 +8,7 @@ public class Familia {
 	public String contacto;
 	public EnlazadoArbolBinario arbolito;
 	
+	
 	public Familia(String contacto) {
 		super();
 		this.contacto = contacto;

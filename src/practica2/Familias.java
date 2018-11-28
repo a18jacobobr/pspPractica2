@@ -1,40 +1,45 @@
 package practica2;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
 public class Familias {
 
-	public ArrayList<Familia> conjuntoFamilias;
+	public LinkedList<Familia> conjuntoFamilias;
 	private Semaphore primerSemaforo;
 	private boolean recogiendoDatos = false;
+	private int esperando = 0;
+	public static int familiasRestantes;
 
 
-	public Familias(ArrayList<Familia> conjuntoFamilias) {
+
+	public Familias(LinkedList<Familia> conjuntoFamilias) {
 		super();
 		this.conjuntoFamilias = conjuntoFamilias;
+		familiasRestantes = conjuntoFamilias.size();
 	}
 	
-	public void bloquear () {
+	public void bloquear (Empleado empleado) {
 		
 		if (recogiendoDatos == true) {
-			primerSemaforo.acquire();
+			try {
+				esperando = esperando + 1;
+				primerSemaforo.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} 	
 		recogiendoDatos = true;
-		
-		
-			
-		soy el empleeado i
-		si no hay nadie en family j entro
-		si hay alguien pruebo otro
-		si estan ocupados bloqueo
-		
-		pillo recurso
-		
-		si hay alguien esperando a familia i libero sobre familia i
-		si no hay nadie no hago na
-		
-		
+		empleado.llenaLaLista(conjuntoFamilias.poll());
+		familiasRestantes = familiasRestantes - 1;
+		if (esperando > 0) {
+			primerSemaforo.release();
+			esperando = esperando - 1;
+		}
+		recogiendoDatos = false;
+				
 	}
 	
 }
