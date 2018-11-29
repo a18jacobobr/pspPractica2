@@ -5,15 +5,15 @@ import java.util.concurrent.Semaphore;
 
 public class Becario extends Thread{
 	
-	public int cafes;
+	public int numeroBecario;
 	public ContenedorInformes contenedor;
 //	public Semaphore semaforoBecario;
 	public Semaphore semaforoRecoger = new Semaphore(1);
 //	private int esperando = 0;
 	
-	public Becario(int cafes, ContenedorInformes contenedor) {
+	public Becario(int numeroBecario, ContenedorInformes contenedor) {
 		super();
-		this.cafes = cafes;
+		this.numeroBecario = numeroBecario;
 		this.contenedor = contenedor;
 	}
 	
@@ -21,8 +21,9 @@ public class Becario extends Thread{
 				
 		while (Familias.familiasRestantes > 0) {
 			while (ContenedorInformes.informesIntermediosRestantes <= 0) {
-				cafes = cafes + 1;
+				System.out.println("El becario "+numeroBecario+" esta haciendo cafes y barriendo");
 				try {
+					
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -30,13 +31,12 @@ public class Becario extends Thread{
 				}					
 			}
 			try {
-//				esperando = esperando + 1;
 				semaforoRecoger.acquire();
-//				esperando = esperando - 1;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			contenedor.bloqueaInformesIntermedios(this);
 			contenedor.listaInformesFinales.add(creaInformeFinal(contenedor.listaInformesIntermedios.poll()));
 			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes - 1;
 			
@@ -51,13 +51,17 @@ public class Becario extends Thread{
 		List<Integer> listaEdades =  informe.getListaEdades();
 		int contador = 0;
 		int suma = 0;
+		int edadMax = 0;
 		for (int i = 0; i < listaEdades.size(); i++) {
 			suma = suma + listaEdades.get(i);
+			if (edadMax < listaEdades.get(i)) {
+				edadMax = listaEdades.get(i);
+			}
 			contador = contador + 1;
 		}
-		int media = suma / contador;
+		double media = suma / contador;
 		
-		InformeFinal informeFinal = new InformeFinal(informe.getNombreFamilia(), media);
+		InformeFinal informeFinal = new InformeFinal(informe.getNombreFamilia(), media, edadMax);
 		return informeFinal;
 	}
 

@@ -1,6 +1,7 @@
 package practica2;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Programa {
 
@@ -31,20 +32,43 @@ public class Programa {
 		family.generaArbol(3);	
 		Familia family3 = new Familia("Saenz");
 		family.generaArbol(3);
+		Familia family4 = new Familia("Seeee");
+		family.generaArbol(3);
+		Familia family5 = new Familia("Paaa");
+		family.generaArbol(3);
+		Familia family6 = new Familia("Sieieo");
+		family.generaArbol(3);
 		LinkedList<Familia> listaFamilias = new LinkedList<Familia>();
 		listaFamilias.add(family);
 		listaFamilias.add(family2);
 		listaFamilias.add(family3);
+		listaFamilias.add(family4);
+		listaFamilias.add(family5);
+		listaFamilias.add(family6);
+	
+		
+		
 		Familias conjuntoFamilias = new Familias(listaFamilias);
+		
 		ContenedorInformes contenedor = new ContenedorInformes();
 		
 		Empleado primerEmpleado = new Empleado(conjuntoFamilias, contenedor, "JuanEmpleado");
-		Empleado segundoEmpleado = new Empleado(conjuntoFamilias, contenedor, "PepeEmpleado");
-		Empleado tercerEmpleado = new Empleado(conjuntoFamilias, contenedor, "FelipeEmpleado");
+//		Empleado segundoEmpleado = new Empleado(conjuntoFamilias, contenedor, "PepeEmpleado");
+//		Empleado tercerEmpleado = new Empleado(conjuntoFamilias, contenedor, "FelipeEmpleado");
 		
-		primerEmpleado.run();
-		segundoEmpleado.run();
-		tercerEmpleado.run();
+//		Becario becario = new Becario(1, contenedor);
+//		Becario becario2 = new Becario(2, contenedor);
+//		Becario becario3 = new Becario(3, contenedor);
+//		
+//		Jefe jefe = new Jefe(conjuntoFamilias, contenedor);
+		
+		primerEmpleado.start();
+//		segundoEmpleado.start();
+//		tercerEmpleado.start();
+//		becario.start();
+//		becario2.start();
+//		becario3.start();
+//		jefe.start();
 		
 		
 //		List<Integer> misValores = ArbolUtil.devuelveValoresArbol(family.getArbolito());

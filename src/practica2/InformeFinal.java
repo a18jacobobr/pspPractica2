@@ -3,17 +3,15 @@ package practica2;
 public class InformeFinal {
 	
 	public String nombreFamilia;
-	public int media;
+	public double media;
+	public int edadMax;
 	
-	public InformeFinal(int media) {
-		super();
-		this.media = media;
-	}
-
-	public InformeFinal(String nombreFamilia, int media) {
+	
+	public InformeFinal(String nombreFamilia, double media, int edadMax) {
 		super();
 		this.nombreFamilia = nombreFamilia;
 		this.media = media;
+		this.edadMax = edadMax;
 	}
 
 	public String getNombreFamilia() {
@@ -24,14 +22,27 @@ public class InformeFinal {
 		this.nombreFamilia = nombreFamilia;
 	}
 
-	public int getMedia() {
+	public double getMedia() {
 		return media;
 	}
 
 	public void setMedia(int media) {
 		this.media = media;
 	}
-	
+
+	public int getEdadMax() {
+		return edadMax;
+	}
+
+	public void setEdadMax(int edadMax) {
+		this.edadMax = edadMax;
+	}
+
+	@Override
+	public String toString() {
+		return "InformeFinal [nombreFamilia=" + nombreFamilia + ", media=" + media + ", edadMax=" + edadMax + "]";
+	}
+
 	
 
 }

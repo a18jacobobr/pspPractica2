@@ -1,6 +1,6 @@
 package practica2;
 
-import aedi.arbol.ArbolBinario;
+
 import aedi.arbol.EnlazadoArbolBinario;
 
 public class Familia {

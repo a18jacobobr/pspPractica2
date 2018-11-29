@@ -1,6 +1,6 @@
 package practica2;
 
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
@@ -8,8 +8,7 @@ public class Familias {
 
 	public LinkedList<Familia> conjuntoFamilias;
 	private Semaphore primerSemaforo = new Semaphore(1);
-	private boolean recogiendoDatos = false;
-	private int esperando = 0;
+	
 	public static int familiasRestantes;
 
 
@@ -20,38 +19,48 @@ public class Familias {
 		familiasRestantes = conjuntoFamilias.size();
 	}
 	
+	
+	
+	public LinkedList<Familia> getConjuntoFamilias() {
+		return conjuntoFamilias;
+	}
+
+
+
+	public void setConjuntoFamilias(LinkedList<Familia> conjuntoFamilias) {
+		this.conjuntoFamilias = conjuntoFamilias;
+	}
+
+
+
+	public static int getFamiliasRestantes() {
+		return familiasRestantes;
+	}
+
+
+
+	public static void setFamiliasRestantes(int familiasRestantes) {
+		Familias.familiasRestantes = familiasRestantes;
+	}
+
+
+
 	public void bloquear (Empleado empleado) {
-		
-//		if (recogiendoDatos == true) {
-//			try {
-//				esperando = esperando + 1;
-//				primerSemaforo.acquire();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		} 	
-		
+				
 		try {
 			primerSemaforo.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		recogiendoDatos = true;
-		empleado.llenaLaLista(conjuntoFamilias.poll());
-		System.out.println(empleado.getNombre()+" ha llenado su lista");
-		familiasRestantes = familiasRestantes - 1;
-		primerSemaforo.release();
-		
-		
-//		recogiendoDatos = false;
-//		if (esperando > 0) {
-//			primerSemaforo.release();
-//			esperando = esperando - 1;
-//		}
-		
-				
+
+		if (conjuntoFamilias.get(0) != null && !conjuntoFamilias.isEmpty()) {
+			
+			empleado.llenaLaLista(conjuntoFamilias.poll());
+			System.out.println(empleado.getNombre()+" ha llenado su lista");
+			familiasRestantes = familiasRestantes - 1;
+			primerSemaforo.release();
+		}		
 	}
 	
 }

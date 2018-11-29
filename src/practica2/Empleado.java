@@ -3,7 +3,6 @@ package practica2;
 import java.util.ArrayList;
 import java.util.List;
 
-import aedi.arbol.EnlazadoArbolBinario;
 
 public class Empleado extends Thread {
 	
@@ -70,12 +69,16 @@ public class Empleado extends Thread {
 	}
 
 	public void run () {
-		while (familias.conjuntoFamilias.size() > 0) {
+		while (familias.getConjuntoFamilias().size() > 0) {
+			
 			familias.bloquear(this);
 			contenedor.listaInformesIntermedios.add(generaInformeIntermedio());
 			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes + 1;
 			System.out.println(nombreEmpleado+" ha creado el informe");
-			vaciaLista();
+			for (int i = 0; i < listado.size(); i++) {
+				System.out.println(listado.get(i));
+			}
+//			vaciaLista();
 			System.out.println(nombreEmpleado+" ha vaciado su lista");
 			
 		}
