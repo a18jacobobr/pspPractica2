@@ -8,7 +8,7 @@ public class Becario extends Thread{
 	public int numeroBecario;
 	public ContenedorInformes contenedor;
 //	public Semaphore semaforoBecario;
-	public Semaphore semaforoRecoger = new Semaphore(1);
+	public static Semaphore semaforoRecoger = new Semaphore(1);
 //	private int esperando = 0;
 	
 	public Becario(int numeroBecario, ContenedorInformes contenedor) {
@@ -19,7 +19,7 @@ public class Becario extends Thread{
 	
 	public void run () {
 				
-		while (Familias.familiasRestantes > 0) {
+		while (ContenedorInformes.informesFinalesListos < 6) {
 			while (ContenedorInformes.informesIntermediosRestantes <= 0) {
 				System.out.println("El becario "+numeroBecario+" esta haciendo cafes y barriendo");
 				try {
@@ -37,8 +37,8 @@ public class Becario extends Thread{
 				e.printStackTrace();
 			}
 			contenedor.bloqueaInformesIntermedios(this);
-			contenedor.listaInformesFinales.add(creaInformeFinal(contenedor.listaInformesIntermedios.poll()));
-			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes - 1;
+//			contenedor.listaInformesFinales.add(creaInformeFinal(contenedor.listaInformesIntermedios.poll()));
+//			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes - 1;
 			
 			semaforoRecoger.release();
 			

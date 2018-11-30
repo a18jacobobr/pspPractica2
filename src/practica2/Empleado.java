@@ -3,15 +3,14 @@ package practica2;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Empleado extends Thread {
-	
+
 	private Familias familias;
 	private ContenedorInformes contenedor;
 	private String nombreEmpleado;
 	private List<Integer> listado;
 	private String apellidoFamilia;
-		
+
 	public Empleado(Familias familias, ContenedorInformes contenedor, String nombre) {
 		super();
 		this.familias = familias;
@@ -20,14 +19,13 @@ public class Empleado extends Thread {
 		this.listado = new ArrayList<Integer>();
 		this.apellidoFamilia = "";
 	}
-	
+
 	public Empleado(String nombre) {
 		super();
 		this.nombreEmpleado = nombre;
 		listado = new ArrayList<Integer>();
 	}
-	
-	
+
 	public Familias getFamilias() {
 		return familias;
 	}
@@ -68,35 +66,32 @@ public class Empleado extends Thread {
 		this.apellidoFamilia = apellidoFamilia;
 	}
 
-	public void run () {
+	public void run() {
 		while (familias.getConjuntoFamilias().size() > 0) {
-			
-			familias.bloquear(this);
-			contenedor.listaInformesIntermedios.add(generaInformeIntermedio());
-			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes + 1;
-			System.out.println(nombreEmpleado+" ha creado el informe");
-			for (int i = 0; i < listado.size(); i++) {
-				System.out.println(listado.get(i));
+			if (familias.bloquear(this)) {
+				contenedor.listaInformesIntermedios.add(generaInformeIntermedio());
+				ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes + 1;
+				System.out.println(nombreEmpleado + " ha creado el informe");
+				System.out.println(listado.size());
 			}
-//			vaciaLista();
-			System.out.println(nombreEmpleado+" ha vaciado su lista");
-			
 		}
 	}
-	
-	public void llenaLaLista (Familia family) {
-		apellidoFamilia = family.getContacto();
-		listado = ArbolUtil.devuelveValoresArbol(family.getArbolito());
+
+	public void llenaLaLista(Familia family) {
+		if (family != null) {
+			apellidoFamilia = family.getContacto();
+			listado = ArbolUtil.devuelveValoresArbol(family.getArbolito());
+		}
 	}
-	public void vaciaLista () {
+
+	public void vaciaLista() {
 		listado.clear();
 		apellidoFamilia = "";
 	}
 
-	public InformeIntermedio generaInformeIntermedio () {
+	public InformeIntermedio generaInformeIntermedio() {
 		InformeIntermedio informeGenerado = new InformeIntermedio(apellidoFamilia, listado);
 		return informeGenerado;
 	}
-	
-	
+
 }

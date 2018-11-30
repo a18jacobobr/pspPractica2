@@ -27,17 +27,17 @@ public class Programa {
 		//recursividad llamando al propio metodo para crear el arbol, en la profundidad deaseada (int profundidad) -> else y dejar de llamar al propio metodo
 		
 		Familia family = new Familia("Pepe");
-		family.generaArbol(3);
+		family.setArbolito(family.generaArbol(3));
 		Familia family2 = new Familia("Lopez");
-		family.generaArbol(3);	
+		family2.setArbolito(family2.generaArbol(3));	
 		Familia family3 = new Familia("Saenz");
-		family.generaArbol(3);
+		family3.setArbolito(family3.generaArbol(3));
 		Familia family4 = new Familia("Seeee");
-		family.generaArbol(3);
+		family4.setArbolito(family4.generaArbol(3));
 		Familia family5 = new Familia("Paaa");
-		family.generaArbol(3);
+		family5.setArbolito(family5.generaArbol(3));;
 		Familia family6 = new Familia("Sieieo");
-		family.generaArbol(3);
+		family6.setArbolito(family6.generaArbol(3));
 		LinkedList<Familia> listaFamilias = new LinkedList<Familia>();
 		listaFamilias.add(family);
 		listaFamilias.add(family2);
@@ -47,29 +47,37 @@ public class Programa {
 		listaFamilias.add(family6);
 	
 		
+//		for (int i = 0; i < listaFamilias.size(); i++) {
+//			List<Integer> listita = ArbolUtil.devuelveValoresArbol(listaFamilias.get(i).getArbolito());
+//			System.out.println("Imprimo valores de listita "+i);
+//			for (int j = 0; j < listita.size(); j++) {
+//				System.out.println(listita.get(j));
+//			}
+//		}
+		
 		
 		Familias conjuntoFamilias = new Familias(listaFamilias);
 		
 		ContenedorInformes contenedor = new ContenedorInformes();
 		
 		Empleado primerEmpleado = new Empleado(conjuntoFamilias, contenedor, "JuanEmpleado");
-//		Empleado segundoEmpleado = new Empleado(conjuntoFamilias, contenedor, "PepeEmpleado");
-//		Empleado tercerEmpleado = new Empleado(conjuntoFamilias, contenedor, "FelipeEmpleado");
+		Empleado segundoEmpleado = new Empleado(conjuntoFamilias, contenedor, "PepeEmpleado");
+		Empleado tercerEmpleado = new Empleado(conjuntoFamilias, contenedor, "FelipeEmpleado");
 		
-//		Becario becario = new Becario(1, contenedor);
-//		Becario becario2 = new Becario(2, contenedor);
-//		Becario becario3 = new Becario(3, contenedor);
-//		
-//		Jefe jefe = new Jefe(conjuntoFamilias, contenedor);
+		Becario becario = new Becario(1, contenedor);
+		Becario becario2 = new Becario(2, contenedor);
+		Becario becario3 = new Becario(3, contenedor);
+		
+		Jefe jefe = new Jefe(conjuntoFamilias, contenedor);
 		
 		primerEmpleado.start();
-//		segundoEmpleado.start();
-//		tercerEmpleado.start();
-//		becario.start();
-//		becario2.start();
-//		becario3.start();
+		segundoEmpleado.start();
+		tercerEmpleado.start();
+		becario.start();
+		becario2.start();
+		becario3.start();
 //		jefe.start();
-		
+//		
 		
 //		List<Integer> misValores = ArbolUtil.devuelveValoresArbol(family.getArbolito());
 		

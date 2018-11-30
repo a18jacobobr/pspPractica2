@@ -2,6 +2,7 @@ package practica2;
 
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class Familias {
@@ -10,7 +11,7 @@ public class Familias {
 	private Semaphore primerSemaforo = new Semaphore(1);
 	
 	public static int familiasRestantes;
-
+	
 
 
 	public Familias(LinkedList<Familia> conjuntoFamilias) {
@@ -45,22 +46,28 @@ public class Familias {
 
 
 
-	public void bloquear (Empleado empleado) {
+	public boolean bloquear (Empleado empleado) {
 				
 		try {
-			primerSemaforo.acquire();
-		} catch (InterruptedException e) {
+			if ( primerSemaforo.tryAcquire() ) {
+				if (!conjuntoFamilias.isEmpty()) {
+					Familia fam = conjuntoFamilias.poll();
+					if (fam != null) {
+						empleado.llenaLaLista(fam);
+						System.out.println(empleado.getNombre()+" ha llenado su lista");
+						familiasRestantes = familiasRestantes - 1;
+						if (!conjuntoFamilias.isEmpty())
+							primerSemaforo.release();
+						return true;
+					}
+				}
+			}
+			return false;
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		if (conjuntoFamilias.get(0) != null && !conjuntoFamilias.isEmpty()) {
-			
-			empleado.llenaLaLista(conjuntoFamilias.poll());
-			System.out.println(empleado.getNombre()+" ha llenado su lista");
-			familiasRestantes = familiasRestantes - 1;
-			primerSemaforo.release();
-		}		
+		return false;
 	}
 	
 }

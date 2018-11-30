@@ -50,11 +50,12 @@ public class ContenedorInformes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(!listaInformesIntermedios.isEmpty() && listaInformesIntermedios.getFirst() != null) {
+		if(!listaInformesIntermedios.isEmpty()) {
 			listaInformesFinales.add(becario.creaInformeFinal(listaInformesIntermedios.poll()));
 			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes - 1;
 			System.out.println("el becario numero "+becario.numeroBecario+" ha creado un informe final");
 			informesFinalesListos = informesFinalesListos + 1;
+			int inf = informesFinalesListos; 
 			semaforoIntermedios.release();
 		}
 	}
