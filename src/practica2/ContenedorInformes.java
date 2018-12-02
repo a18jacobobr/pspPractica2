@@ -4,60 +4,49 @@ import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
 public class ContenedorInformes {
-	
-	public LinkedList<InformeIntermedio> listaInformesIntermedios;
-	public LinkedList<InformeFinal> listaInformesFinales;
-	public static int informesIntermediosRestantes = 0;
-	public static int informesFinalesListos = 0;
+
+	private LinkedList<InformeIntermedio> listaInformesIntermedios;
+	private LinkedList<InformeFinal> listaInformesFinales;
+
 	private Semaphore semaforoIntermedios = new Semaphore(1);
-	
+
 	public ContenedorInformes() {
 		super();
 		this.listaInformesIntermedios = new LinkedList<InformeIntermedio>();
 		this.listaInformesFinales = new LinkedList<InformeFinal>();
 	}
-	
-	
-	
+
 	public LinkedList<InformeIntermedio> getListaInformesIntermedios() {
 		return listaInformesIntermedios;
 	}
-
-
 
 	public void setListaInformesIntermedios(LinkedList<InformeIntermedio> listaInformesIntermedios) {
 		this.listaInformesIntermedios = listaInformesIntermedios;
 	}
 
-
-
 	public LinkedList<InformeFinal> getListaInformesFinales() {
 		return listaInformesFinales;
 	}
-
-
 
 	public void setListaInformesFinales(LinkedList<InformeFinal> listaInformesFinales) {
 		this.listaInformesFinales = listaInformesFinales;
 	}
 
+	public boolean bloqueaInformesIntermedios(Becario becario) {
 
+		if (semaforoIntermedios.tryAcquire()) {															//si es true ejecuta
+			if (!listaInformesIntermedios.isEmpty() && listaInformesIntermedios.peek() != null) {		//si la lista de informes intermedios no esta vacia y lo que tenga dentro no es null
+				InformeIntermedio finalillo = listaInformesIntermedios.poll();
+				if (finalillo != null) {																//vuelve a comprobar q no sea null
+					listaInformesFinales.add(becario.creaInformeFinal(finalillo));						//crea el informe final
+				}
+				semaforoIntermedios.release();
 
-	public void bloqueaInformesIntermedios (Becario becario) {
-		try {
-			semaforoIntermedios.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				return true;
+			}
 		}
-		if(!listaInformesIntermedios.isEmpty()) {
-			listaInformesFinales.add(becario.creaInformeFinal(listaInformesIntermedios.poll()));
-			ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes - 1;
-			System.out.println("el becario numero "+becario.numeroBecario+" ha creado un informe final");
-			informesFinalesListos = informesFinalesListos + 1;
-			int inf = informesFinalesListos; 
-			semaforoIntermedios.release();
-		}
+
+		return false;
 	}
 
 }

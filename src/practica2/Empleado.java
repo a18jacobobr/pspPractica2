@@ -67,12 +67,11 @@ public class Empleado extends Thread {
 	}
 
 	public void run() {
-		while (familias.getConjuntoFamilias().size() > 0) {
-			if (familias.bloquear(this)) {
-				contenedor.listaInformesIntermedios.add(generaInformeIntermedio());
-				ContenedorInformes.informesIntermediosRestantes = ContenedorInformes.informesIntermediosRestantes + 1;
-				System.out.println(nombreEmpleado + " ha creado el informe");
-				System.out.println(listado.size());
+		while (familias.getConjuntoFamilias().size() > 0) { // mientras tengamos familias
+			if (familias.bloquear(this)) { // devuelve true si se creo informe intermedio
+				contenedor.getListaInformesIntermedios().add(generaInformeIntermedio()); // añade el informe al contenedor
+			} else {
+				System.out.println("el empleado" + nombreEmpleado + " esta esperando para recoger datos");
 			}
 		}
 	}
@@ -84,13 +83,10 @@ public class Empleado extends Thread {
 		}
 	}
 
-	public void vaciaLista() {
-		listado.clear();
-		apellidoFamilia = "";
-	}
-
 	public InformeIntermedio generaInformeIntermedio() {
 		InformeIntermedio informeGenerado = new InformeIntermedio(apellidoFamilia, listado);
+		System.out.println("el empleado " + nombreEmpleado + "ha creado el informe intermedio de la familia "
+				+ informeGenerado.getNombreFamilia());
 		return informeGenerado;
 	}
 

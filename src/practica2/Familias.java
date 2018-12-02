@@ -1,61 +1,35 @@
 package practica2;
 
-
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class Familias {
 
 	public LinkedList<Familia> conjuntoFamilias;
 	private Semaphore primerSemaforo = new Semaphore(1);
-	
-	public static int familiasRestantes;
-	
-
 
 	public Familias(LinkedList<Familia> conjuntoFamilias) {
 		super();
 		this.conjuntoFamilias = conjuntoFamilias;
-		familiasRestantes = conjuntoFamilias.size();
+
 	}
-	
-	
-	
+
 	public LinkedList<Familia> getConjuntoFamilias() {
 		return conjuntoFamilias;
 	}
-
-
 
 	public void setConjuntoFamilias(LinkedList<Familia> conjuntoFamilias) {
 		this.conjuntoFamilias = conjuntoFamilias;
 	}
 
+	public boolean bloquear(Empleado empleado) {
 
-
-	public static int getFamiliasRestantes() {
-		return familiasRestantes;
-	}
-
-
-
-	public static void setFamiliasRestantes(int familiasRestantes) {
-		Familias.familiasRestantes = familiasRestantes;
-	}
-
-
-
-	public boolean bloquear (Empleado empleado) {
-				
 		try {
-			if ( primerSemaforo.tryAcquire() ) {
-				if (!conjuntoFamilias.isEmpty()) {
-					Familia fam = conjuntoFamilias.poll();
-					if (fam != null) {
-						empleado.llenaLaLista(fam);
-						System.out.println(empleado.getNombre()+" ha llenado su lista");
-						familiasRestantes = familiasRestantes - 1;
+			if (primerSemaforo.tryAcquire()) { // se ejecuta si es true
+				if (!conjuntoFamilias.isEmpty()) { // comprueba que todavia hay familias que consultar
+					Familia fam = conjuntoFamilias.poll(); // recopila los datos
+					if (fam != null) { // comprueba que la familia no es null
+						empleado.llenaLaLista(fam); // recoge los datos
 						if (!conjuntoFamilias.isEmpty())
 							primerSemaforo.release();
 						return true;
@@ -69,5 +43,5 @@ public class Familias {
 		}
 		return false;
 	}
-	
+
 }

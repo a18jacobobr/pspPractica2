@@ -1,10 +1,10 @@
 package practica2;
 
 public class Jefe extends Thread {
-	
-	public Familias familias;
-	public ContenedorInformes contenedor;
-	
+
+	private Familias familias;
+	private ContenedorInformes contenedor;
+
 	public Jefe(Familias familias, ContenedorInformes contenedor) {
 		super();
 		this.familias = familias;
@@ -26,24 +26,25 @@ public class Jefe extends Thread {
 	public void setContenedor(ContenedorInformes contenedor) {
 		this.contenedor = contenedor;
 	}
-	
-	
-	public void run () {
-		while (familias.getConjuntoFamilias().size() != ContenedorInformes.informesFinalesListos ) {
+
+	public void run() {
+		while (Becario.acabado == false) { // mientras no terminen los becarios
 			System.out.println("El jefe esta esperando informes");
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		for (int i = 0; i > contenedor.getListaInformesFinales().size(); i++) {
-			contenedor.getListaInformesFinales().get(i).toString();
+		System.out.println("");
+		System.out.println("Resumen estadístico final");
+		System.out.println("-----------------------------------------------------");
+		int tamano = contenedor.getListaInformesFinales().size();
+		for (int i = 0; i < tamano; i++) {
+			InformeFinal informecito = contenedor.getListaInformesFinales().get(i); // imprime el resumen estadístico
+			System.out.println(informecito);
 		}
-		
+
 	}
-	
-	
 
 }

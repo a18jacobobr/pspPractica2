@@ -1,12 +1,11 @@
 package practica2;
 
 public class InformeFinal {
-	
+
 	public String nombreFamilia;
 	public double media;
 	public int edadMax;
-	
-	
+
 	public InformeFinal(String nombreFamilia, double media, int edadMax) {
 		super();
 		this.nombreFamilia = nombreFamilia;
@@ -40,9 +39,7 @@ public class InformeFinal {
 
 	@Override
 	public String toString() {
-		return "InformeFinal [nombreFamilia=" + nombreFamilia + ", media=" + media + ", edadMax=" + edadMax + "]";
+		return "- Familia " + nombreFamilia + "  //  media edad: " + media + "  //  mas longevo " + edadMax;
 	}
-
-	
 
 }

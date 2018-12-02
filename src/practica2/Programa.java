@@ -1,41 +1,22 @@
 package practica2;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Programa {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		// 3 trabajadores ejecutan varias familias
-		// las familias las eligen desde el listado, al que acceden individualmente (semaforo)
-		// selecciona una y ejecuta la persona de contacto (libera semaforo)
-		// trabajador ejecuta persona contacto para recibir los datos
-		// trabajador crea informe intermedio publico
-		// 
-		
-		// cuatro hilos -> empleado, becarios, jefe, contacto
-		
-		// empleado -> elige contacto y lo ejecuta, recibe sus datos(de uno en uno) y crea informe intermedio,
-		// becario -> sirven cafes y barren, si hay informes hacen la media de la edad para crea un informe final
-		// jefe -> recoge informes finales, espera mientras tanto
-		// contacto -> recoge los datos de su familia y los devuelve de uno en uno
-		// informe -> es el buffer y los informes son el recurso, que empieza = 0
-		//
-	
-		//recursividad llamando al propio metodo para crear el arbol, en la profundidad deaseada (int profundidad) -> else y dejar de llamar al propio metodo
-		
 		Familia family = new Familia("Pepe");
 		family.setArbolito(family.generaArbol(3));
 		Familia family2 = new Familia("Lopez");
-		family2.setArbolito(family2.generaArbol(3));	
+		family2.setArbolito(family2.generaArbol(3));
 		Familia family3 = new Familia("Saenz");
 		family3.setArbolito(family3.generaArbol(3));
 		Familia family4 = new Familia("Seeee");
 		family4.setArbolito(family4.generaArbol(3));
 		Familia family5 = new Familia("Paaa");
-		family5.setArbolito(family5.generaArbol(3));;
+		family5.setArbolito(family5.generaArbol(3));
+		;
 		Familia family6 = new Familia("Sieieo");
 		family6.setArbolito(family6.generaArbol(3));
 		LinkedList<Familia> listaFamilias = new LinkedList<Familia>();
@@ -45,46 +26,29 @@ public class Programa {
 		listaFamilias.add(family4);
 		listaFamilias.add(family5);
 		listaFamilias.add(family6);
-	
-		
-//		for (int i = 0; i < listaFamilias.size(); i++) {
-//			List<Integer> listita = ArbolUtil.devuelveValoresArbol(listaFamilias.get(i).getArbolito());
-//			System.out.println("Imprimo valores de listita "+i);
-//			for (int j = 0; j < listita.size(); j++) {
-//				System.out.println(listita.get(j));
-//			}
-//		}
-		
-		
+
 		Familias conjuntoFamilias = new Familias(listaFamilias);
-		
+
 		ContenedorInformes contenedor = new ContenedorInformes();
-		
+
 		Empleado primerEmpleado = new Empleado(conjuntoFamilias, contenedor, "JuanEmpleado");
 		Empleado segundoEmpleado = new Empleado(conjuntoFamilias, contenedor, "PepeEmpleado");
 		Empleado tercerEmpleado = new Empleado(conjuntoFamilias, contenedor, "FelipeEmpleado");
-		
-		Becario becario = new Becario(1, contenedor);
-		Becario becario2 = new Becario(2, contenedor);
-		Becario becario3 = new Becario(3, contenedor);
-		
+
+		Becario becario = new Becario(1, contenedor, conjuntoFamilias);
+		Becario becario2 = new Becario(2, contenedor, conjuntoFamilias);
+		Becario becario3 = new Becario(3, contenedor, conjuntoFamilias);
+
 		Jefe jefe = new Jefe(conjuntoFamilias, contenedor);
-		
+
 		primerEmpleado.start();
 		segundoEmpleado.start();
 		tercerEmpleado.start();
 		becario.start();
 		becario2.start();
 		becario3.start();
-//		jefe.start();
-//		
-		
-//		List<Integer> misValores = ArbolUtil.devuelveValoresArbol(family.getArbolito());
-		
-		
-		
-		
-		
+		jefe.start();
+
 	}
 
 }
